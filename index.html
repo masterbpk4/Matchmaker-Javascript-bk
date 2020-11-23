@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body {background-color: pink; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
+    h1 {text-align: center;}
+    h2 {text-align: center;}
+    h3 {text-align: center;}
+    h4 {text-align: center;}
+    p {text-align: center;}
+    .button {margin-right: 40%; margin-left: 40%;}
+</style>
+<script>
+    var score = [];
+    function theGame() { //This function asks the questions to the user and gathers their answers into an array
+        var Questions = [
+            "Cats are better than dogs.", 
+            "Mountains are better than beaches.", 
+            "Sitting down and watching anime is a good pastime", 
+            "I enjoy tabletop rpgs or would be interested in trying them.", 
+            "I prefer sweet snacks over salty ones."
+        ];
+        for (i of Questions) {
+            var questionScore = prompt(i, "Enter a number");
+
+            if (questionScore == 1 || questionScore == 2 || questionScore == 3 || questionScore == 4 || questionScore == 5) {
+                score.push(Number(questionScore));
+            }
+            else {
+                var error = prompt("Please enter a number between 1 and 5" , "Click ok to Continue");
+            };
+            
+        };
+    };
+
+    var finalScore = [];
+    function scoreCalculation() { //This function weights the answers that the user gave
+        for (j in score) {
+            if (j == 0 || j == 4) {
+                finalScore.push(Number(score[j]));
+            }
+            else if (j == 1 || j == 3) {
+                var k = Number(score[j]);
+                k = 3 * k;
+                finalScore.push(k);
+            }
+            else if (j == 2) {
+                var k = Number(score[j]);
+                k = 2 * k;
+                finalScore.push(k);
+            }
+        };
+    };
+
+    function shouldIRun() { //This function analyzes the score and determines if we are meant to be <3
+        var finalValue;
+        finalValue = 0;
+        for (l of finalScore) {
+            console.log(l)
+            finalValue = finalValue + Number(l)
+            console.log(finalValue)
+        };
+        finalValue = finalValue * 2
+        if (finalValue < 40) {
+            document.getElementById("gameText").innerHTML = "I hope we never meet, you got a score of:" + " " + finalValue;
+        }
+        else if (finalValue >= 40 && finalValue <= 80) {
+            document.getElementById("gameText").innerHTML = "I think we would be good friends, you got a score of:" + " " + finalValue;
+        }
+        else if (finalValue > 80) {
+            document.getElementById("gameText").innerHTML = "I think we were made for each other! You got a score of:" + " " + finalValue;
+        };
+        document.getElementById("finalValueText").innerHTML = finalValue;
+    };
+</script>
+
+</head>
+<body> 
+<h1>Hello and Welcome to The Ultimate Matchmaker! <br>
+    You will be given a series of statements where you are asked <br>
+    to rate how much you agree or disagree with them on a scale of 1 to 5 <br>
+    where 1 is strongly disagree and 5 is strongly agree.</h1>
+<p id = "gameText"> Let's Get started, shall we?</p>
+<button class = "button" type = "button" onclick ="theGame()" >Click Here to Begin! </button>
+<button class = "button" type = "button" onclick = "scoreCalculation()">Click Here to Calculate you Score!</button>
+<button class = "button" type = "button" onclick = "shouldIRun()">Click Here for your results!</button>
+<p id = "scoreText"></p>
+<p id = "finalScoreText"></p>
+<p id = "finalValueText"></p>
+</body>
+</html>
